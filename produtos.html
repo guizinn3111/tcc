@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevClub Café - Café da Manhã</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#000000',
+                        secondary: '#FFD700',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255, 215, 0, 0.3);
+        }
+        .quantity-btn {
+            transition: all 0.2s;
+        }
+        .quantity-btn:hover {
+            background-color: #000000;
+            color: #FFD700;
+        }
+    </style>
+</head>
+<body class="bg-primary text-white">
+    <div class="min-h-screen">
+        <!-- Header -->
+        <header class="bg-primary border-b border-secondary py-6 sticky top-0 z-50">
+            <div class="container mx-auto px-4 flex justify-between items-center">
+                <h1 class="text-3xl font-bold text-secondary">
+                    <span class="text-white">DevClub</span> Café
+                </h1>
+                <div class="flex items-center space-x-4">
+                    <button id="cart-btn" class="relative group" aria-label="cart">
+                        <i data-feather="shopping-cart" class="text-secondary"></i>
+                        <span id="cart-count" class="absolute -top-2 -right-2 bg-secondary text-primary rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold">0</span>
+                        <div id="cart-dropdown" class="hidden absolute right-0 mt-2 w-72 bg-gray-900 rounded-lg shadow-lg border border-secondary z-50">
+                            <div class="p-4 max-h-96 overflow-y-auto">
+                                <h3 class="text-lg font-bold text-secondary mb-4">Seu Carrinho</h3>
+                                <div id="cart-items"></div>
+                                <div class="border-t border-secondary pt-4 mt-4">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <span class="font-bold">Total:</span>
+                                        <span id="cart-total" class="text-secondary font-bold">R$ 0,00</span>
+                                    </div>
+                                    <button id="checkout-btn" class="w-full bg-secondary text-primary py-2 rounded-lg font-bold hover:bg-yellow-600 transition">
+                                        Finalizar Compra
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </header>
+<!-- Main Content -->
+        <main class="container mx-auto px-4 py-12">
+            <h2 class="text-3xl font-bold mb-8 text-secondary text-center">Café da Manhã</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Product 1 -->
+                <div class="product-card bg-gray-900 rounded-lg overflow-hidden border border-secondary transition-all duration-300">
+                    <img src="http://static.photos/food/640x360/1" alt="Café Expresso" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Café Expresso</h3>
+                        <p class="text-gray-300 mb-4">Café forte e aromático, perfeito para começar o dia.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-secondary">R$ 5,90</span>
+                            <div class="flex items-center space-x-2">
+                                <button class="quantity-btn bg-secondary text-primary w-8 h-8 rounded-full flex items-center justify-center">
+                                    <i data-feather="minus" class="w-4"></i>
+                                </button>
+                                <span class="quantity">0</span>
+                                <button class="quantity-btn bg-secondary text-primary w-8 h-8 rounded-full flex items-center justify-center">
+                                    <i data-feather="plus" class="w-4"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <button class="add-to-cart mt-4 w-full bg-secondary text-primary py-2 rounded-lg font-bold hover:bg-yellow-600 transition">
+                            Adicionar ao Carrinho
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="product-card bg-gray-900 rounded-lg overflow-hidden border border-secondary transition-all duration-300">
+                    <img src="http://static.photos/food/640x360/2" alt="Croissant" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Croissant</h3>
+                        <p class="text-gray-300 mb-4">Folhado e crocante, feito com manteiga de qualidade.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-secondary">R$ 8,50</span>
+                            <div class="flex items-center space-x-2">
+                                <button class="quantity-btn bg-secondary text-primary w-8 h-8 rounded-full flex items-center justify-center">
+                                    <i data-feather="minus" class="w-4"></i>
+                                </button>
+                                <span class="quantity">0</span>
+                                <button class="quantity-btn bg-secondary text-primary w-8 h-8 rounded-full flex items-center justify-center">
+                                    <i data-feather="plus" class="w-4"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <button class="add-to-cart mt-4 w-full bg-secondary text-primary py-2 rounded-lg font-bold hover:bg-yellow-600 transition">
+                            Adicionar ao Carrinho
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="product-card bg-gray-900 rounded-lg overflow-hidden border border-secondary transition-all duration-300">
+                    <img src="http://static.photos/food/640x360/3" alt="Torta de Maçã" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Torta de Maçã</h3>
+                        <p class="text-gray-300 mb-4">Deliciosa torta caseira com fatias de maçã caramelizada.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-secondary">R$ 12,90</span>
+                            <div class="flex items-center space-x-2">
+                                <button class="quantity-btn bg-secondary text-primary w-8 h-8 rounded-full flex items-center justify-center">
+                                    <i data-feather="minus" class="w-4"></i>
+                                </button>
+                                <span class="quantity">0</span>
+                                <button class="quantity-btn bg-secondary text-primary w-8 h-8 rounded-full flex items-center justify-center">
+                                    <i data-feather="plus" class="w-4"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <button class="add-to-cart mt-4 w-full bg-secondary text-primary py-2 rounded-lg font-bold hover:bg-yellow-600 transition">
+                            Adicionar ao Carrinho
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="product-card bg-gray-900 rounded-lg overflow-hidden border border-secondary transition-all duration-300">
+                    <img src="http://static.photos/food/640x360/4" alt="Suco Natural" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Suco Natural</h3>
+                        <p class="text-gray-300 mb-4">Feito na hora com frutas frescas (laranja, abacaxi ou morango).</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-secondary">R$ 7,50</span>
+                            <div class="flex items-center space-x-2">
+                                <button class="quantity-btn bg-secondary text-primary w-8 h-8 rounded-full flex items-center justify-center">
+                                    <i data-feather="minus" class="w-4"></i>
+                                </button>
+                                <span class="quantity">0</span>
+                                <button class="quantity-btn bg-secondary text-primary w-8 h-8 rounded-full flex items-center justify-center">
+                                    <i data-feather="plus" class="w-4"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <button class="add-to-cart mt-4 w-full bg-secondary text-primary py-2 rounded-lg font-bold hover:bg-yellow-600 transition">
+                            Adicionar ao Carrinho
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 5 -->
+                <div class="product-card bg-gray-900 rounded-lg overflow-hidden border border-secondary transition-all duration-300">
+                    <img src="http://static.photos/food/640x360/5" alt="Pão de Queijo" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Pão de Queijo</h3>
+                        <p class="text-gray-300 mb-4">Tradicional mineiro, feito com queijo artesanal.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-secondary">R$ 4,50</span>
+                            <div class="flex items-center space-x-2">
+                                <button class="quantity-btn bg-secondary text-primary w-8 h-8 rounded-full flex items-center justify-center">
+                                    <i data-feather="minus" class="w-4"></i>
+                                </button>
+                                <span class="quantity">0</span>
+                                <button class="quantity-btn bg-secondary text-primary w-8 h-8 rounded-full flex items-center justify-center">
+                                    <i data-feather="plus" class="w-4"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <button class="add-to-cart mt-4 w-full bg-secondary text-primary py-2 rounded-lg font-bold hover:bg-yellow-600 transition">
+                            Adicionar ao Carrinho
+                        </button>
+                    </div>
+                </div>
+                <!-- Product 6 -->
+                <div class="product-card bg-gray-900 rounded-lg overflow-hidden border border-secondary transition-all duration-300">
+                    <img src="http://static.photos/food/640x360/6" alt="Cappuccino" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Cappuccino</h3>
+                        <p class="text-gray-300 mb-4">Café com leite vaporizado e uma deliciosa camada de espuma.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-secondary">R$ 9,90</span>
+                            <div class="flex items-center space-x-2">
+                                <button class="quantity-btn bg-secondary text-primary w-8 h-8 rounded-full flex items-center justify-center">
+                                    <i data-feather="minus" class="w-4"></i>
+                                </button>
+                                <span class="quantity">0</span>
+                                <button class="quantity-btn bg-secondary text-primary w-8 h-8 rounded-full flex items-center justify-center">
+                                    <i data-feather="plus" class="w-4"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <button class="add-to-cart mt-4 w-full bg-secondary text-primary py-2 rounded-lg font-bold hover:bg-yellow-600 transition">
+                            Adicionar ao Carrinho
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 7 -->
+                <div class="product-card bg-gray-900 rounded-lg overflow-hidden border border-secondary transition-all duration-300">
+                    <img src="http://static.photos/food/640x360/7" alt="Waffle" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Waffle</h3>
+                        <p class="text-gray-300 mb-4">Crocante por fora e macio por dentro, servido com mel e frutas.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-secondary">R$ 14,90</span>
+                            <div class="flex items-center space-x-2">
+                                <button class="quantity-btn bg-secondary text-primary w-8 h-8 rounded-full flex items-center justify-center">
+                                    <i data-feather="minus" class="w-4"></i>
+                                </button>
+                                <span class="quantity">0</span>
+                                <button class="quantity-btn bg-secondary text-primary w-8 h-8 rounded-full flex items-center justify-center">
+                                    <i data-feather="plus" class="w-4"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <button class="add-to-cart mt-4 w-full bg-secondary text-primary py-2 rounded-lg font-bold hover:bg-yellow-600 transition">
+                            Adicionar ao Carrinho
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 8 -->
+                <div class="product-card bg-gray-900 rounded-lg overflow-hidden border border-secondary transition-all duration-300">
+                    <img src="http://static.photos/food/640x360/8" alt="Smoothie" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Smoothie</h3>
+                        <p class="text-gray-300 mb-4">Bebida cremosa com frutas frescas e iogurte natural.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-secondary">R$ 10,50</span>
+                            <div class="flex items-center space-x-2">
+                                <button class="quantity-btn bg-secondary text-primary w-8 h-8 rounded-full flex items-center justify-center">
+                                    <i data-feather="minus" class="w-4"></i>
+                                </button>
+                                <span class="quantity">0</span>
+                                <button class="quantity-btn bg-secondary text-primary w-8 h-8 rounded-full flex items-center justify-center">
+                                    <i data-feather="plus" class="w-4"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <button class="add-to-cart mt-4 w-full bg-secondary text-primary py-2 rounded-lg font-bold hover:bg-yellow-600 transition">
+                            Adicionar ao Carrinho
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 9 -->
+                <div class="product-card bg-gray-900 rounded-lg overflow-hidden border border-secondary transition-all duration-300">
+                    <img src="http://static.photos/food/640x360/9" alt="Omelete" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Omelete</h3>
+                        <p class="text-gray-300 mb-4">Feito com ovos frescos e recheio de queijo e legumes.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-secondary">R$ 12,50</span>
+                            <div class="flex items-center space-x-2">
+                                <button class="quantity-btn bg-secondary text-primary w-8 h-8 rounded-full flex items-center justify-center">
+                                    <i data-feather="minus" class="w-4"></i>
+                                </button>
+                                <span class="quantity">0</span>
+                                <button class="quantity-btn bg-secondary text-primary w-8 h-8 rounded-full flex items-center justify-center">
+                                    <i data-feather="plus" class="w-4"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <button class="add-to-cart mt-4 w-full bg-secondary text-primary py-2 rounded-lg font-bold hover:bg-yellow-600 transition">
+                            Adicionar ao Carrinho
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 10 -->
+                <div class="product-card bg-gray-900 rounded-lg overflow-hidden border border-secondary transition-all duration-300">
+                    <img src="http://static.photos/food/640x360/10" alt="Bolo de Cenoura" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Bolo de Cenoura</h3>
+                        <p class="text-gray-300 mb-4">Bolo macio com cobertura de chocolate meio amargo.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-secondary">R$ 7,90</span>
+                            <div class="flex items-center space-x-2">
+                                <button class="quantity-btn bg-secondary text-primary w-8 h-8 rounded-full flex items-center justify-center">
+                                    <i data-feather="minus" class="w-4"></i>
+                                </button>
+                                <span class="quantity">0</span>
+                                <button class="quantity-btn bg-secondary text-primary w-8 h-8 rounded-full flex items-center justify-center">
+                                    <i data-feather="plus" class="w-4"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <button class="add-to-cart mt-4 w-full bg-secondary text-primary py-2 rounded-lg font-bold hover:bg-yellow-600 transition">
+                            Adicionar ao Carrinho
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 11 -->
+                <div class="product-card bg-gray-900 rounded-lg overflow-hidden border border-secondary transition-all duration-300">
+                    <img src="http://static.photos/food/640x360/11" alt="Sanduíche Natural" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Sanduíche Natural</h3>
+                        <p class="text-gray-300 mb-4">Pão integral com peito de peru, queijo branco e vegetais frescos.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-secondary">R$ 11,90</span>
+                            <div class="flex items-center space-x-2">
+                                <button class="quantity-btn bg-secondary text-primary w-8 h-8 rounded-full flex items-center justify-center">
+                                    <i data-feather="minus" class="w-4"></i>
+                                </button>
+                                <span class="quantity">0</span>
+                                <button class="quantity-btn bg-secondary text-primary w-8 h-8 rounded-full flex items-center justify-center">
+                                    <i data-feather="plus" class="w-4"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <button class="add-to-cart mt-4 w-full bg-secondary text-primary py-2 rounded-lg font-bold hover:bg-yellow-600 transition">
+                            Adicionar ao Carrinho
+                        </button>
+                    </div>
+                </div>
+                <!-- Product 12 -->
+                <div class="product-card bg-gray-900 rounded-lg overflow-hidden border border-secondary transition-all duration-300">
+                    <img src="http://static.photos/food/640x360/12" alt="Iogurte com Granola" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Iogurte com Granola</h3>
+                        <p class="text-gray-300 mb-4">Iogurte natural com granola caseira e mel.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-secondary">R$ 8,90</span>
+                            <div class="flex items-center space-x-2">
+                                <button class="quantity-btn bg-secondary text-primary w-8 h-8 rounded-full flex items-center justify-center">
+                                    <i data-feather="minus" class="w-4"></i>
+                                </button>
+                                <span class="quantity">0</span>
+                                <button class="quantity-btn bg-secondary text-primary w-8 h-8 rounded-full flex items-center justify-center">
+                                    <i data-feather="plus" class="w-4"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <button class="add-to-cart mt-4 w-full bg-secondary text-primary py-2 rounded-lg font-bold hover:bg-yellow-600 transition">
+                            Adicionar ao Carrinho
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 13 -->
+                <div class="product-card bg-gray-900 rounded-lg overflow-hidden border border-secondary transition-all duration-300">
+                    <img src="http://static.photos/food/640x360/13" alt="Panqueca" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Panqueca</h3>
+                        <p class="text-gray-300 mb-4">Panqueca americana com mel e frutas frescas.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-secondary">R$ 12,50</span>
+                            <div class="flex items-center space-x-2">
+                                <button class="quantity-btn bg-secondary text-primary w-8 h-8 rounded-full flex items-center justify-center">
+                                    <i data-feather="minus" class="w-4"></i>
+                                </button>
+                                <span class="quantity">0</span>
+                                <button class="quantity-btn bg-secondary text-primary w-8 h-8 rounded-full flex items-center justify-center">
+                                    <i data-feather="plus" class="w-4"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <button class="add-to-cart mt-4 w-full bg-secondary text-primary py-2 rounded-lg font-bold hover:bg-yellow-600 transition">
+                            Adicionar ao Carrinho
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 14 -->
+                <div class="product-card bg-gray-900 rounded-lg overflow-hidden border border-secondary transition-all duration-300">
+                    <img src="http://static.photos/food/640x360/14" alt="Misto Quente" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Misto Quente</h3>
+                        <p class="text-gray-300 mb-4">Pão de forma com queijo e presunto derretidos.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-secondary">R$ 7,50</span>
+                            <div class="flex items-center space-x-2">
+                                <button class="quantity-btn bg-secondary text-primary w-8 h-8 rounded-full flex items-center justify-center">
+                                    <i data-feather="minus" class="w-4"></i>
+                                </button>
+                                <span class="quantity">0</span>
+                                <button class="quantity-btn bg-secondary text-primary w-8 h-8 rounded-full flex items-center justify-center">
+                                    <i data-feather="plus" class="w-4"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <button class="add-to-cart mt-4 w-full bg-secondary text-primary py-2 rounded-lg font-bold hover:bg-yellow-600 transition">
+                            Adicionar ao Carrinho
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 15 -->
+                <div class="product-card bg-gray-900 rounded-lg overflow-hidden border border-secondary transition-all duration-300">
+                    <img src="http://static.photos/food/640x360/15" alt="Milk Shake" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Milk Shake</h3>
+                        <p class="text-gray-300 mb-4">Bebida cremosa com sorvete e leite (sabores: chocolate, morango ou baunilha).</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-secondary">R$ 14,90</span>
+                            <div class="flex items-center space-x-2">
+                                <button class="quantity-btn bg-secondary text-primary w-8 h-8 rounded-full flex items-center justify-center">
+                                    <i data-feather="minus" class="w-4"></i>
+                                </button>
+                                <span class="quantity">0</span>
+                                <button class="quantity-btn bg-secondary text-primary w-8 h-8 rounded-full flex items-center justify-center">
+                                    <i data-feather="plus" class="w-4"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <button class="add-to-cart mt-4 w-full bg-secondary text-primary py-2 rounded-lg font-bold hover:bg-yellow-600 transition">
+                            Adicionar ao Carrinho
+                        </button>
+                    </div>
+                </div>
+            </div>
+</main>
+
+        <!-- Footer -->
+        <footer class="bg-primary border-t border-secondary py-8">
+            <div class="container mx-auto px-4 text-center">
+                <h2 class="text-2xl font-bold text-secondary mb-4">DevClub Café</h2>
+                <p class="text-gray-400">Todos os dias das 7h às 18h</p>
+                <p class="text-gray-400 mt-2">Rua do Café, 123 - Centro</p>
+                <div class="flex justify-center space-x-4 mt-6">
+                    <a href="#" class="text-secondary hover:text-yellow-600">
+                        <i data-feather="instagram"></i>
+                    </a>
+                    <a href="#" class="text-secondary hover:text-yellow-600">
+                        <i data-feather="facebook"></i>
+                    </a>
+                    <a href="#" class="text-secondary hover:text-yellow-600">
+                        <i data-feather="twitter"></i>
+                    </a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        feather.replace();
+        // Cart functionality with dropdown
+        document.addEventListener('DOMContentLoaded', function() {
+            const cartCount = document.getElementById('cart-count');
+            const addToCartButtons = document.querySelectorAll('.add-to-cart');
+            const cartBtn = document.getElementById('cart-btn');
+            const cartDropdown = document.getElementById('cart-dropdown');
+            const cartItems = document.getElementById('cart-items');
+            const cartTotal = document.getElementById('cart-total');
+            const checkoutBtn = document.getElementById('checkout-btn');
+            
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            // Update cart on load
+            updateCart();
+
+            // Toggle cart dropdown
+            cartBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                cartDropdown.classList.toggle('hidden');
+                updateCart();
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function() {
+                cartDropdown.classList.add('hidden');
+            });
+
+            // Add to cart functionality
+            addToCartButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const productCard = this.closest('.product-card');
+                    const productName = productCard.querySelector('h3').textContent;
+                    const productPrice = parseFloat(productCard.querySelector('span').textContent.replace('R$ ', '').replace(',', '.'));
+                    const quantity = parseInt(productCard.querySelector('.quantity').textContent);
+                    
+                    if (quantity > 0) {
+                        // Check if product already in cart
+                        const existingItem = cart.find(item => item.name === productName);
+                        
+                        if (existingItem) {
+                            existingItem.quantity += quantity;
+                        } else {
+                            cart.push({
+                                name: productName,
+                                price: productPrice,
+                                quantity: quantity
+                            });
+                        }
+                        
+                        // Save to localStorage and update UI
+                        localStorage.setItem('cart', JSON.stringify(cart));
+                        updateCart();
+                        
+                        // Animation
+                        cartCount.classList.add('animate-bounce');
+                        setTimeout(() => {
+                            cartCount.classList.remove('animate-bounce');
+                        }, 1000);
+                    }
+                });
+            });
+
+            // Checkout button
+            checkoutBtn.addEventListener('click', function() {
+                if (cart.length > 0) {
+                    alert('Compra finalizada com sucesso!\nTotal: ' + cartTotal.textContent);
+                    cart = [];
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    updateCart();
+                    cartDropdown.classList.add('hidden');
+                }
+            });
+
+            function updateCart() {
+                // Update cart count
+                const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+                cartCount.textContent = totalItems;
+                
+                // Update cart items
+                cartItems.innerHTML = '';
+                if (cart.length === 0) {
+                    cartItems.innerHTML = '<p class="text-gray-400 text-center py-4">Seu carrinho está vazio</p>';
+                    cartTotal.textContent = 'R$ 0,00';
+                    return;
+                }
+                
+                let total = 0;
+                cart.forEach((item, index) => {
+                    const itemTotal = item.price * item.quantity;
+                    total += itemTotal;
+                    
+                    const itemElement = document.createElement('div');
+                    itemElement.className = 'flex justify-between items-center py-2 border-b border-gray-700';
+                    itemElement.innerHTML = `
+                        <div class="flex-1">
+                            <h4 class="font-medium">${item.name}</h4>
+                            <div class="flex items-center mt-1">
+                                <button class="decrease-btn text-xs bg-gray-700 rounded px-2 py-1 mr-2" data-index="${index}">-</button>
+                                <span class="quantity">${item.quantity}</span>
+                                <button class="increase-btn text-xs bg-gray-700 rounded px-2 py-1 ml-2" data-index="${index}">+</button>
+                                <span class="ml-auto text-secondary">R$ ${itemTotal.toFixed(2).replace('.', ',')}</span>
+                            </div>
+                        </div>
+                        <button class="remove-btn ml-2 text-red-400" data-index="${index}">
+                            <i data-feather="trash-2" class="w-4 h-4"></i>
+                        </button>
+                    `;
+                    cartItems.appendChild(itemElement);
+                });
+                
+                // Update total
+                cartTotal.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
+                
+                // Add event listeners to buttons
+                document.querySelectorAll('.increase-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const index = parseInt(this.getAttribute('data-index'));
+                        cart[index].quantity++;
+                        localStorage.setItem('cart', JSON.stringify(cart));
+                        updateCart();
+                    });
+                });
+                
+                document.querySelectorAll('.decrease-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const index = parseInt(this.getAttribute('data-index'));
+                        if (cart[index].quantity > 1) {
+                            cart[index].quantity--;
+                        } else {
+                            cart.splice(index, 1);
+                        }
+                        localStorage.setItem('cart', JSON.stringify(cart));
+                        updateCart();
+                    });
+                });
+                
+                document.querySelectorAll('.remove-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const index = parseInt(this.getAttribute('data-index'));
+                        cart.splice(index, 1);
+                        localStorage.setItem('cart', JSON.stringify(cart));
+                        updateCart();
+                    });
+                });
+                
+                feather.replace();
+            }
+            // Product quantity buttons
+            document.querySelectorAll('.quantity-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const isPlus = this.querySelector('i').getAttribute('data-feather') === 'plus';
+                    const quantityElement = this.closest('.product-card').querySelector('.quantity');
+                    let quantity = parseInt(quantityElement.textContent);
+                    
+                    if (isPlus) {
+                        quantity++;
+                    } else if (quantity > 0) {
+                        quantity--;
+                    }
+                    
+                    quantityElement.textContent = quantity;
+                });
+            });
+ 
+            });
+</script>
+
+<style>
+    #cart-dropdown {
+        display: none;
+    }
+    #cart-btn:hover #cart-dropdown {
+        display: block;
+    }
+    .decrease-btn:hover, .increase-btn:hover {
+        background-color: #FFD700 !important;
+        color: #000000 !important;
+    }
+    .remove-btn:hover {
+        color: #ff0000 !important;
+    }
+</style>
+
+</body>
+</html>
