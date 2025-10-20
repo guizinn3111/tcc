@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <base target="_self">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevClub Café - Login</title>
+    <meta name="description" content="Faça login na DevClub Cafe - Sua cafeteria online preferida">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#000000",
+                        secondary: "#FFD700",
+                        accent: "#FFED4A"
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="min-h-screen bg-cover bg-center" style="background-image: url('https://picsum.photos/1920/1080?random=1')">
+    <div class="min-h-screen bg-black bg-opacity-60 flex items-center justify-center px-4">
+        <div class="max-w-md w-full">
+            <!-- Logo Section -->
+            <div class="text-center mb-8">
+                <h1 class="text-4xl font-bold text-secondary mb-2">
+                    <i class="fas fa-coffee mr-2"></i>DevClub Café
+                </h1>
+                <p class="text-white text-lg">Sua cafeteria online</p>
+            </div>
+
+            <!-- Login Form -->
+            <div class="bg-white rounded-2xl shadow-2xl p-8">
+                <h2 class="text-2xl font-bold text-center text-gray-800 mb-8">Faça seu Login</h2>
+                
+                <form id="loginForm" class="space-y-6">
+                    <!-- Email Field -->
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+                            <i class="fas fa-envelope mr-2 text-primary"></i>E-mail
+                        </label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            name="email"
+                            required
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-secondary focus:border-transparent transition-all duration-200"
+                            placeholder="seu@email.com"
+                        >
+                    </div>
+
+                    <!-- Password Field -->
+                    <div>
+                        <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
+                            <i class="fas fa-lock mr-2 text-primary"></i>Senha
+                        </label>
+                        <input 
+                            type="password" 
+                            id="password" 
+                            name="password"
+                            required
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-secondary focus:border-transparent transition-all duration-200"
+                            placeholder="Sua senha"
+                        >
+                    </div>
+
+                    <!-- Remember Me Checkbox -->
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <input 
+                                type="checkbox" 
+                                id="remember"
+                                name="remember"
+                                class="h-4 w-4 text-secondary focus:ring-secondary border-gray-300 rounded"
+                            >
+                            <label for="remember" class="ml-2 block text-sm text-gray-700">
+                                Lembrar de mim
+                            </label>
+                        </div>
+                        <a href="#" class="text-sm text-primary hover:text-secondary transition-colors duration-200">
+                            Esqueceu a senha?
+                        </a>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button 
+                        type="submit"
+                        class="w-full bg-primary text-white py-3 px-4 rounded-lg font-semibold hover:bg-gray-800 focus:ring-2 focus:ring-secondary focus:ring-offset-2 transition-all duration-200 transform hover:scale-105"
+                    >
+                        <i class="fas fa-sign-in-alt mr-2"></i>Entrar
+                    </button>
+                </form>
+
+                <!-- Divider -->
+                <div class="mt-6">
+                    <div class="relative">
+                        <div class="absolute inset-0 flex items-center">
+                            <div class="w-full border-t border-gray-300"></div>
+                        </div>
+                        <div class="relative flex justify-center text-sm">
+                            <span class="px-2 bg-white text-gray-500">ou</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Social Login -->
+                <div class="mt-6 grid grid-cols-2 gap-3">
+                    <button 
+                        type="button"
+                        class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:ring-2 focus:ring-secondary transition-all duration-200"
+                    >
+                        <i class="fab fa-google text-red-500 mr-2"></i>
+                        Google
+                    </button>
+                    <button 
+                        type="button"
+                        class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:ring-2 focus:ring-secondary transition-all duration-200"
+                    >
+                        <i class="fab fa-facebook text-blue-600 mr-2"></i>
+                        Facebook
+                    </button>
+                </div>
+
+                <!-- Register Link -->
+                <div class="mt-6 text-center">
+                    <p class="text-sm text-gray-600">
+                        Não tem uma conta?
+                        <a href="#" class="font-medium text-primary hover:text-secondary transition-colors duration-200 ml-1">
+                            Cadastre-se
+                        </a>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Success Message -->
+            <div id="successMessage" class="hidden mt-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg text-center">
+                <i class="fas fa-check-circle mr-2"></i>
+                <span id="successText">Login realizado com sucesso!</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data storage
+        const userData = {
+            email: "",
+            password: "",
+            remember: false,
+            loginTime: ""
+        };
+
+        // Form submission handler
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(this);
+            userData.email = formData.get('email');
+            userData.password = formData.get('password');
+            userData.remember = formData.get('remember') === 'on';
+            userData.loginTime = new Date().toLocaleString('pt-BR');
+            
+            // Save to localStorage
+            localStorage.setItem('devclubCafeUserData', JSON.stringify(userData));
+            
+            // Show success message
+            const successMessage = document.getElementById('successMessage');
+            const successText = document.getElementById('successText');
+            successText.textContent = `Login realizado com sucesso! Dados salvos em ${userData.loginTime}`;
+            successMessage.classList.remove('hidden');
+            
+            // Hide message after 5 seconds
+            setTimeout(() => {
+                successMessage.classList.add('hidden');
+            }, 5000);
+            
+            // Reset form
+            this.reset();
+            
+            // Log saved data to console (for demonstration)
+            console.log('Dados salvos:', userData);
+        });
+
+        // Load remembered data if exists
+        window.addEventListener('load', function() {
+            const savedData = localStorage.getItem('devclubCafeUserData');
+            if (savedData) {
+                const userData = JSON.parse(savedData);
+                console.log('Dados recuperados:', userData);
+                
+                // Show last login info
+                const successMessage = document.getElementById('successMessage');
+                const successText = document.getElementById('successText');
+                successText.textContent = `Último login: ${userData.loginTime}`;
+                successMessage.classList.remove('hidden');
+                successMessage.classList.remove('bg-green-100', 'border-green-400', 'text-green-700');
+                successMessage.classList.add('bg-blue-100', 'border-blue-400', 'text-blue-700');
+                
+                setTimeout(() => {
+                    successMessage.classList.add('hidden');
+                }, 3000);
+            }
+        });
+
+        // Add hover effects to all interactive elements
+        document.querySelectorAll('input, button, a').forEach(element => {
+            element.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-1px)';
+            });
+            
+            element.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>
