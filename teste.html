@@ -32,32 +32,28 @@
 <body class="min-h-screen bg-black text-white font-sans">
     <!-- Header -->
     <header class="bg-primary text-white shadow-lg sticky top-0 z-50">
-        <div class="container mx-auto px-4 py-4">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-2">
-                    <i class="fas fa-coffee text-secondary text-2xl"></i>
-                    <h1 class="text-2xl font-bold">DevClube Café</h1>
-                </div>
+        <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-coffee text-secondary text-2xl"></i>
+                <h1 class="text-2xl font-bold">DevClube Café</h1>
+            </div>
 
-                <div class="flex-1 max-w-2xl mx-8">
-                    <div class="relative">
-                        <input 
-                            type="text" 
-                            id="searchInput"
-                            placeholder="Buscar produtos..." 
-                            class="w-full px-4 py-2 rounded-lg bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-secondary"
-                        >
-                        <i class="fas fa-search absolute right-3 top-3 text-gray-400"></i>
-                    </div>
-                </div>
-
+            <div class="flex-1 max-w-2xl mx-8">
                 <div class="relative">
-                    <button id="cartButton" class="flex items-center space-x-2 bg-secondary text-primary px-4 py-2 rounded-lg hover:bg-yellow-400 transition-colors">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span id="cartCount" class="font-semibold">0</span>
-                    </button>
+                    <input 
+                        type="text" 
+                        id="searchInput"
+                        placeholder="Buscar produtos..." 
+                        class="w-full px-4 py-2 rounded-lg bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-secondary"
+                    >
+                    <i class="fas fa-search absolute right-3 top-3 text-gray-400"></i>
                 </div>
             </div>
+
+            <button id="cartButton" class="flex items-center space-x-2 bg-secondary text-primary px-4 py-2 rounded-lg hover:bg-yellow-400 transition-colors">
+                <i class="fas fa-shopping-cart"></i>
+                <span id="cartCount" class="font-semibold">0</span>
+            </button>
         </div>
     </header>
 
@@ -75,16 +71,14 @@
 
         <section>
             <h2 class="text-3xl font-bold text-secondary mb-8">Nossos Produtos</h2>
-            <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8"></div>
+            <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
         </section>
     </main>
 
     <!-- Footer -->
     <footer class="bg-primary text-white mt-16">
-        <div class="container mx-auto px-4 py-12">
-            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-                <p>&copy; 2025 DevClube Café. Todos os direitos reservados.</p>
-            </div>
+        <div class="container mx-auto px-4 py-12 text-center text-gray-400 border-t border-gray-800">
+            <p>&copy; 2024 DevClube Café. Todos os direitos reservados.</p>
         </div>
     </footer>
 
@@ -126,30 +120,17 @@
 
     <script>
         const products = [
-            {id: 1, name: "Café Expresso", price: 8.99, image: "./img/im1.jpg"},
-            {id: 2, name: "Torta de Maçã", price: 13.99, image: "./img/maçã foto.jfif"},
-            {id: 3, name: "Croissant", price: 9.99, image: "./img/croi.jfif"},
-            {id: 4, name: "Waffle", price: 14.99, image: "./img/waffle.jfif"},
-            {id: 5, name: "Omelete", price: 9.99, image: "./img/omelete.jfif"},
-            {id: 6, name: "Suco Natural", price: 9.99, image: "./img/suco.jfif"},
-            {id: 7, name: "Capuccino", price: 7.99, image: "./img/capu.jfif"},
-            {id: 8, name: "Bolo de Cenoura", price: 6.99, image: "./img/cenoura.jfif"},
-            {id: 9, name: "Sanduiche Natural", price: 5.99, image: "./img/natural.jfif"},
-            {id: 10, name: "Panqueca", price: 13.99, image: "./img/panqueca.jfif"},
-            {id: 11, name: "Misto Quente", price: 8.99, image: "./img/misto.jfif"},
-            {id: 12, name: "Café Gelado", price: 14.99, image: "./img/gelado.jfif"},
-            {id: 13, name: "Tigela de iogurte", price: 11.99, image: "./img/iogurte.jfif"},
-            {id: 14, name: "Pão com Mortadela", price: 5.00, image: "./img/pão.png"},
-            {id: 15, name: "Bolo de Morango", price: 7.99, image: "./img/morango.jfif"},
-            {id: 16, name: "Rosquinha", price: 2.99, image: "./img/rosquinha.jfif"},
-            {id: 17, name: "Pão de Queijo", price: 1.50, image: "./img/queijo.jfif"},
-            {id: 18, name: "Tapioca", price: 9.99, image: "./img/tapioca.jfif"}
+            {id: 1, name: "Café Especial Bourbon", price: 29.9, image: "https://picsum.photos/300/200?random=1"},
+            {id: 2, name: "Café Arábica Premium", price: 34.9, image: "https://picsum.photos/300/200?random=2"},
+            {id: 3, name: "Caneca DevClube Café", price: 24.9, image: "https://picsum.photos/300/200?random=3"},
+            {id: 4, name: "Café Orgânico", price: 31.9, image: "https://picsum.photos/300/200?random=4"},
+            {id: 5, name: "Café Gourmet", price: 39.9, image: "https://picsum.photos/300/200?random=5"},
+            {id: 6, name: "Kit de Cápsulas", price: 49.9, image: "https://picsum.photos/300/200?random=6"}
         ];
 
         let cart = [];
-        let filteredProducts = [...products];
-
         const productsGrid = document.getElementById('productsGrid');
+        const searchInput = document.getElementById('searchInput');
         const cartModal = document.getElementById('cartModal');
         const closeCart = document.getElementById('closeCart');
         const cartItems = document.getElementById('cartItems');
@@ -158,15 +139,11 @@
         const checkoutBtn = document.getElementById('checkoutBtn');
         const successModal = document.getElementById('successModal');
         const closeSuccess = document.getElementById('closeSuccess');
-        const searchInput = document.getElementById('searchInput');
 
-        function formatPrice(p) {
-            return p.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-        }
-
-        function renderProducts(list = filteredProducts) {
+        // Renderiza produtos
+        function renderProducts(filteredProducts = products) {
             productsGrid.innerHTML = "";
-            list.forEach(p => {
+            filteredProducts.forEach(p => {
                 const card = document.createElement('div');
                 card.className = "bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow";
                 card.innerHTML = `
@@ -174,16 +151,12 @@
                     <div class="p-4">
                         <h3 class="text-xl font-semibold mb-2">${p.name}</h3>
                         <div class="flex items-center justify-between">
-                            <span class="text-secondary text-lg font-bold">${formatPrice(p.price)}</span>
+                            <span class="text-secondary text-lg font-bold">R$ ${p.price.toFixed(2)}</span>
                             <button onclick="addToCart(${p.id})" class="bg-secondary text-black px-4 py-2 rounded-lg font-semibold hover:bg-yellow-400">Adicionar</button>
                         </div>
                     </div>`;
                 productsGrid.appendChild(card);
             });
-
-            if (list.length === 0) {
-                productsGrid.innerHTML = `<p class='text-gray-400 col-span-full text-center text-lg'>Nenhum produto encontrado.</p>`;
-            }
         }
 
         function addToCart(id) {
@@ -201,34 +174,54 @@
                 total += item.price * item.qty;
                 const div = document.createElement('div');
                 div.className = "flex justify-between items-center mb-4";
-                div.innerHTML = `
-                    <span>${item.name} (${item.qty})</span>
-                    <span>${formatPrice(item.price * item.qty)}</span>`;
+                div.innerHTML = `<span>${item.name} (${item.qty})</span><span>R$ ${(item.price * item.qty).toFixed(2)}</span>`;
                 cartItems.appendChild(div);
             });
-            cartTotal.textContent = formatPrice(total);
+            cartTotal.textContent = `R$ ${total.toFixed(2)}`;
             cartCount.textContent = cart.reduce((t, i) => t + i.qty, 0);
         }
 
-        // Pesquisa em tempo real
-        searchInput.addEventListener("input", e => {
+        searchInput.addEventListener('input', (e) => {
             const query = e.target.value.toLowerCase();
-            filteredProducts = products.filter(p => p.name.toLowerCase().includes(query));
-            renderProducts(filteredProducts);
+            const filtered = products.filter(p => p.name.toLowerCase().includes(query));
+            renderProducts(filtered);
         });
 
         document.getElementById('cartButton').onclick = () => cartModal.classList.remove('hidden');
         closeCart.onclick = () => cartModal.classList.add('hidden');
         cartModal.onclick = e => { if (e.target === cartModal) cartModal.classList.add('hidden'); };
 
+        // Finalizar compra
         checkoutBtn.onclick = () => {
-            cart = [];
-            updateCart();
-            cartModal.classList.add('hidden');
-            successModal.classList.remove('hidden');
+            // Verifica se o usuário está logado
+            const loggedIn = localStorage.getItem('loggedIn');
+
+            if (!loggedIn) {
+                // Salva estado do carrinho antes do login
+                localStorage.setItem('cartBackup', JSON.stringify(cart));
+                // Redireciona para o login
+                window.location.href = "login.html";
+            } else {
+                // Mostra mensagem de sucesso
+                cart = [];
+                updateCart();
+                cartModal.classList.add('hidden');
+                successModal.classList.remove('hidden');
+                localStorage.removeItem('loggedIn'); // limpa login após compra
+            }
         };
 
         closeSuccess.onclick = () => successModal.classList.add('hidden');
+
+        // Se voltou do login, restaura carrinho e mostra mensagem
+        window.addEventListener('load', () => {
+            if (localStorage.getItem('loggedIn') === 'true' && localStorage.getItem('cartBackup')) {
+                cart = JSON.parse(localStorage.getItem('cartBackup'));
+                localStorage.removeItem('cartBackup');
+                updateCart();
+                successModal.classList.remove('hidden');
+            }
+        });
 
         renderProducts();
     </script>
