@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevClube Café - Loja de Produtos</title>
+    <meta name="description" content="Encontre os melhores produtos de café e acessórios na DevClube Café">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#000000",
+                        secondary: "#FFD700",
+                        accent: "#333333"
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body class="min-h-screen bg-black text-white font-sans">
+    
+    <header class="bg-primary text-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-coffee text-secondary text-2xl"></i>
+                <h1 class="text-2xl font-bold">DevClube Café</h1>
+            </div>
+            <div class="flex-1 max-w-2xl mx-8 relative">
+                <input type="text" id="searchInput" placeholder="Buscar produtos..." 
+                    class="w-full px-4 py-2 rounded-lg bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-secondary">
+                <i class="fas fa-search absolute right-3 top-3 text-gray-400"></i>
+            </div>
+            <button id="cartButton" class="flex items-center space-x-2 bg-secondary text-primary px-4 py-2 rounded-lg hover:bg-yellow-400 transition-colors">
+                <i class="fas fa-shopping-cart"></i>
+                <span id="cartCount" class="font-semibold">0</span>
+            </button>
+        </div>
+    </header>
+
+    
+    <main class="container mx-auto px-4 py-8">
+        <section class="bg-gradient-to-r from-gray-900 to-black rounded-2xl p-8 mb-12 text-white">
+            <div class="max-w-2xl">
+                <h2 class="text-4xl font-bold mb-4">Descubra o Sabor do Café Perfeito</h2>
+                <p class="text-xl text-gray-300 mb-6">Grãos selecionados, acessórios premium e muito mais para sua experiência única com café.</p>
+                <button class="bg-secondary text-primary px-8 py-3 rounded-lg font-semibold hover:bg-yellow-400 transition-colors">
+                    Explorar Produtos
+                </button>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="text-3xl font-bold text-secondary mb-8">Nossos Produtos</h2>
+            <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8"></div>
+        </section>
+    </main>
+
+    
+    <footer class="bg-primary text-white mt-16">
+        <div class="container mx-auto px-4 py-12 text-center text-gray-400 border-t border-gray-800">
+            <p>&copy; 2025 DevClube Café. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    
+    <div id="cartModal" class="fixed inset-0 bg-black bg-opacity-60 z-50 hidden">
+        <div class="absolute right-0 top-0 h-full w-96 bg-gray-900 shadow-xl text-white">
+            <div class="p-6 h-full flex flex-col">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-bold text-secondary">Carrinho</h3>
+                    <button id="closeCart" class="text-gray-400 hover:text-secondary"><i class="fas fa-times text-2xl"></i></button>
+                </div>
+                <div id="cartItems" class="flex-1 overflow-y-auto"></div>
+                <div class="border-t border-gray-700 pt-4 mt-4">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-lg font-semibold">Total:</span>
+                        <span id="cartTotal" class="text-2xl font-bold text-secondary">R$ 0,00</span>
+                    </div>
+                    <button id="checkoutBtn" class="w-full bg-secondary text-black py-3 rounded-lg font-semibold hover:bg-yellow-400 transition-colors">
+                        Finalizar Compra
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <div id="clientModal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center hidden z-50">
+        <div class="bg-gray-900 text-white p-8 rounded-2xl shadow-2xl w-96">
+            <h2 class="text-2xl font-bold mb-4 text-secondary">Informações do Cliente</h2>
+            <div class="mb-4">
+                <label for="clientName" class="block mb-1">Nome Completo</label>
+                <input type="text" id="clientName" class="w-full rounded p-2 text-black">
+            </div>
+            <div class="mb-4">
+                <label for="clientCPF" class="block mb-1">CPF</label>
+                <input type="text" id="clientCPF" class="w-full rounded p-2 text-black">
+            </div>
+            <div class="flex justify-end gap-2">
+                <button id="cancelClient" class="bg-secondary text-black px-4 py-2 rounded hover:bg-yellow-400">Cancelar</button>
+                <button id="nextPayment" class="bg-secondary text-black px-4 py-2 rounded hover:bg-yellow-400">Próximo</button>
+            </div>
+        </div>
+    </div>
+
+    
+    <div id="paymentModal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center hidden z-50">
+        <div class="bg-gray-900 text-white p-8 rounded-2xl shadow-2xl w-96">
+            <h2 class="text-2xl font-bold mb-4 text-secondary">Selecione a Forma de Pagamento</h2>
+            <div class="flex flex-col gap-3 mb-4">
+                <button class="paymentBtn bg-secondary text-black px-4 py-2 rounded hover:bg-yellow-400" data-method="Cartão">Cartão</button>
+                <button class="paymentBtn bg-secondary text-black px-4 py-2 rounded hover:bg-yellow-400" data-method="Pix">Pix</button>
+                <button class="paymentBtn bg-secondary text-black px-4 py-2 rounded hover:bg-yellow-400" data-method="Dinheiro">Dinheiro</button>
+            </div>
+            <button id="cancelPayment" class="bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-600 w-full">Cancelar</button>
+        </div>
+    </div>
+
+    
+    <div id="cardModal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center hidden z-50">
+        <div class="bg-gray-900 text-white p-8 rounded-2xl shadow-2xl w-96">
+            <h2 class="text-2xl font-bold mb-4 text-secondary">Pagamento com Cartão</h2>
+            <div class="mb-3">
+                <label for="cardNumber" class="block mb-1">Número do Cartão</label>
+                <input type="text" id="cardNumber" class="w-full p-2 rounded text-black" placeholder="0000 0000 0000 0000">
+            </div>
+            <div class="mb-3 flex gap-2">
+                <div class="flex-1">
+                    <label for="cardExpiry" class="block mb-1">Validade</label>
+                    <input type="text" id="cardExpiry" class="w-full p-2 rounded text-black" placeholder="MM/AA">
+                </div>
+                <div class="flex-1">
+                    <label for="cardCVV" class="block mb-1">CVV</label>
+                    <input type="text" id="cardCVV" class="w-full p-2 rounded text-black" placeholder="123">
+                </div>
+            </div>
+            <div class="flex justify-end gap-2 mt-2">
+                <button id="cancelCard" class="bg-gray-700 px-4 py-2 rounded hover:bg-gray-600">Cancelar</button>
+                <button id="confirmCard" class="bg-secondary px-4 py-2 rounded hover:bg-yellow-400 text-black">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    
+    <div id="pixModal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center hidden z-50">
+        <div class="bg-gray-900 text-white p-8 rounded-2xl shadow-2xl w-96 text-center">
+            <h2 class="text-2xl font-bold mb-4 text-secondary">Pagamento via Pix</h2>
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=pix:21965567249" alt="QR Code Pix" class="mx-auto mb-3">
+            <p class="mb-4">Número Pix: <strong>21965567249</strong></p>
+            <button id="confirmPix" class="bg-secondary px-4 py-2 rounded hover:bg-yellow-400 text-black w-full">Confirmar</button>
+        </div>
+    </div>
+
+    
+    <div id="successModal" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center hidden z-50">
+        <div class="bg-gray-900 text-white p-8 rounded-2xl shadow-2xl text-center max-w-md">
+            <i class="fas fa-check-circle text-secondary text-6xl mb-4"></i>
+            <h2 class="text-2xl font-bold mb-2">Compra realizada com sucesso!</h2>
+            <p class="text-gray-400 mb-6">Obrigado por comprar conosco ☕</p>
+            <button id="closeSuccess" class="bg-secondary text-black px-6 py-2 rounded-lg font-semibold hover:bg-yellow-400 transition-colors">Fechar</button>
+        </div>
+    </div>
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+
+    <script>
+        
+        let currentUser = null;
+    
+        
+        const header = document.querySelector("header .container");
+        const userBox = document.createElement("div");
+        userBox.className = "flex items-center space-x-4";
+    
+        const userGreeting = document.createElement("span");
+        userGreeting.className = "text-gray-300 font-medium";
+    
+        const logoutBtn = document.createElement("button");
+        logoutBtn.textContent = "Sair";
+        logoutBtn.className =
+            "bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors";
+    
+        userBox.appendChild(userGreeting);
+        userBox.appendChild(logoutBtn);
+        header.appendChild(userBox);
+    
+        function checkLogin() {
+            const savedUser = localStorage.getItem("loggedInUser"); 
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                userGreeting.textContent = `Olá, ${currentUser.name}`;
+            } else {
+                // Se não estiver logado no site → volte para login
+                window.location.href = "login.html";
+            }
+        }
+    
+        logoutBtn.onclick = () => {
+            localStorage.removeItem("loggedInUser");
+            window.location.href = "login.html";
+        };
+    
+        checkLogin();
+        </script>
+
+<script>
+    const API_URL2 = "http://localhost:3000";
+    
+    // 🔒 Garantir login
+    const savedUser = localStorage.getItem("loggedInUser");
+    if (!savedUser) {
+        window.location.href = "login.html";
+    }
+    const currentUser2 = JSON.parse(savedUser);
+    
+    
+    // 🔗 Carregar ou criar carrinho
+    async function loadOrCreateCart() {
+        try {
+            const userId = currentUser2.id;
+    
+            // Verificar carrinho existente
+            let res = await fetch(`${API_URL2}/cart/user/${userId}`);
+
+    
+            if (res.ok) {
+                const data = await res.json();
+                return data.id;
+            }
+    
+            // Criar novo carrinho
+            res = await fetch(`${API_URL2}/cart`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ user_id: userId })
+            });
+    
+            const data = await res.json();
+            return data.id;
+    
+        } catch (err) {
+            console.error("Erro ao carregar carrinho:", err);
+        }
+    }
+    
+    let CART_ID = null;
+    
+    
+    // 🔗 Enviar produto ao carrinho da API
+    async function addToCartAPI(productId, qty = 1) {
+        if (!CART_ID) {
+            CART_ID = await loadOrCreateCart();
+        }
+    
+        try {
+            await fetch(`${API_URL2}/cart_products`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    cart_id: CART_ID,
+                    product_id: productId,
+                    quantity: qty
+                })
+            });
+        } catch (err) {
+            console.error("Erro ao adicionar ao carrinho:", err);
+        }
+    }
+    </script>
+    
+
+<script>
+    const API_URL = "http://localhost:3000";
+
+    let cart = [];
+    let products = [];
+    let filteredProducts = [];
+
+    async function loadProducts() {
+        try {
+            const response = await fetch(`${API_URL}/product`);
+            products = await response.json();
+            filteredProducts = [...products];
+            renderProducts();
+        } catch (err) {
+            console.error("Erro ao carregar produtos:", err);
+            alert("Erro ao carregar produtos da API");
+        }
+    }
+
+    function formatPrice(p) {
+        return Number(p).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+    }
+
+   
+
+    function addToCart(id) {
+        const product = products.find(p => p.id === id);
+        const item = cart.find(i => i.id === id);
+
+        if (item) item.qty++;
+        else cart.push({ ...product, qty: 1 });
+
+        updateCart();
+    }
+
+    function updateCart() {
+        const cartItems = document.getElementById("cartItems");
+        const cartTotal = document.getElementById("cartTotal");
+        const cartCount = document.getElementById("cartCount");
+
+        cartItems.innerHTML = "";
+        let total = 0;
+
+        cart.forEach(item => {
+            total += item.price * item.qty;
+
+            const div = document.createElement("div");
+            div.className = "flex justify-between items-center mb-4";
+
+            div.innerHTML = `
+                <div>
+                    <span>${item.name}</span>
+                    <div class="flex items-center mt-1 gap-2">
+                        <button class="bg-gray-700 px-2 py-1 rounded text-white" onclick="decreaseQty(${item.id})">-</button>
+                        <span>${item.qty}</span>
+                        <button class="bg-gray-700 px-2 py-1 rounded text-white" onclick="increaseQty(${item.id})">+</button>
+                    </div>
+                </div>
+                <span>${formatPrice(item.price * item.qty)}</span>
+            `;
+
+            cartItems.appendChild(div);
+        });
+
+        cartTotal.textContent = formatPrice(total);
+        cartCount.textContent = cart.reduce((t, i) => t + i.qty, 0);
+    }
+
+    function increaseQty(id) {
+        const item = cart.find(i => i.id === id);
+        if (item) item.qty++;
+        updateCart();
+    }
+
+    function decreaseQty(id) {
+        const item = cart.find(i => i.id === id);
+        if (item && item.qty > 1) item.qty--;
+        else cart = cart.filter(i => i.id !== id);
+        updateCart();
+    }
+
+    document.getElementById("searchInput").addEventListener("input", e => {
+        const query = e.target.value.toLowerCase();
+        filteredProducts = products.filter(p => p.name.toLowerCase().includes(query));
+        renderProducts(filteredProducts);
+    });
+
+    // Carrega produtos logo que a página abrir
+    loadProducts();
+</script>
+<script>
+
+        const productsGrid = document.getElementById('productsGrid');
+        const cartModal = document.getElementById('cartModal');
+        const closeCart = document.getElementById('closeCart');
+        const cartItems = document.getElementById('cartItems');
+        const cartCount = document.getElementById('cartCount');
+        const cartTotal = document.getElementById('cartTotal');
+        const checkoutBtn = document.getElementById('checkoutBtn');
+        const successModal = document.getElementById('successModal');
+        const closeSuccess = document.getElementById('closeSuccess');
+        const searchInput = document.getElementById('searchInput');
+
+        const clientModalEl = document.getElementById('clientModal');
+        const cancelClientBtn = document.getElementById('cancelClient');
+        const nextPaymentBtn = document.getElementById('nextPayment');
+
+        const paymentModalEl = document.getElementById('paymentModal');
+        const cancelPaymentBtn = document.getElementById('cancelPayment');
+        const paymentButtons = document.querySelectorAll('.paymentBtn');
+
+        const cardModalEl = document.getElementById('cardModal');
+        const pixModalEl = document.getElementById('pixModal');
+        const cancelCardBtn = document.getElementById('cancelCard');
+        const confirmCardBtn = document.getElementById('confirmCard');
+        const confirmPixBtn = document.getElementById('confirmPix');
+
+        function formatPrice(p) {
+            return p.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+        }
+
+        function renderProducts(list = filteredProducts) {
+    const productsGrid = document.getElementById('productsGrid');
+    productsGrid.innerHTML = "";
+
+    if(list.length === 0){
+        productsGrid.innerHTML = `<p class='text-gray-400 col-span-full text-center text-lg'>Nenhum produto encontrado.</p>`;
+        return;
+    }
+
+    list.forEach(p => {
+        const card = document.createElement('div');
+        card.className = "bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow";
+
+        // Usar image_url e fallback para imagem padrão
+        const imageSrc = p.image_url || './img/default.jpg';
+
+        card.innerHTML = `
+            <img src="${imageSrc}" alt="${p.name}" class="w-full h-48 object-cover">
+            <div class="p-4">
+                <h3 class="text-xl font-semibold mb-2">${p.name}</h3>
+                <div class="flex items-center justify-between">
+                    <span class="text-secondary text-lg font-bold">${formatPrice(p.price)}</span>
+                    <button onclick="addToCart(${p.id})" class="bg-secondary text-black px-4 py-2 rounded-lg font-semibold hover:bg-yellow-400">
+                        Adicionar
+                    </button>
+                </div>
+            </div>
+        `;
+
+        productsGrid.appendChild(card);
+    });
+}
+
+        async function addToCart(id) {
+    const product = products.find(p => p.id === id);
+    const item = cart.find(i => i.id === id);
+
+    if (item) item.qty++;
+    else cart.push({ ...product, qty: 1 });
+
+    updateCart();
+
+    // 🔗 Enviar também para a API
+    await addToCartAPI(id, 1);
+}
+
+        function updateCart(){
+            cartItems.innerHTML="";
+            let total=0;
+            cart.forEach(item=>{
+                total += item.price * item.qty;
+                const div=document.createElement('div');
+                div.className="flex justify-between items-center mb-4";
+                div.innerHTML=`
+                    <div>
+                      <span>${item.name}</span>
+                      <div class="flex items-center mt-1 gap-2">
+                        <button class="bg-gray-700 px-2 py-1 rounded text-white" onclick="decreaseQty(${item.id})">-</button>
+                        <span>${item.qty}</span>
+                        <button class="bg-gray-700 px-2 py-1 rounded text-white" onclick="increaseQty(${item.id})">+</button>
+                      </div>
+                    </div>
+                    <span>${formatPrice(item.price * item.qty)}</span>`;
+                cartItems.appendChild(div);
+            });
+            cartTotal.textContent = formatPrice(total);
+            cartCount.textContent = cart.reduce((t,i)=>t+i.qty,0);
+        }
+
+        function increaseQty(id){ const item=cart.find(i=>i.id===id); if(item) item.qty++; updateCart(); }
+        function decreaseQty(id){ const item=cart.find(i=>i.id===id); if(item && item.qty>1)item.qty--; else if(item && item.qty===1)cart=cart.filter(i=>i.id!==id); updateCart(); }
+
+        searchInput.addEventListener("input",e=>{ const query=e.target.value.toLowerCase(); filteredProducts=products.filter(p=>p.name.toLowerCase().includes(query)); renderProducts(filteredProducts); });
+        document.getElementById('cartButton').onclick=()=>cartModal.classList.remove('hidden');
+        closeCart.onclick=()=>cartModal.classList.add('hidden');
+        cartModal.onclick=e=>{ if(e.target===cartModal) cartModal.classList.add('hidden'); };
+
+        checkoutBtn.onclick=()=>{ cartModal.classList.add('hidden'); if(cart.length===0){alert("Carrinho vazio!"); return;} clientModalEl.classList.remove('hidden'); }
+        cancelClientBtn.onclick=()=>clientModalEl.classList.add('hidden');
+        nextPaymentBtn.onclick=()=>{ const name=document.getElementById('clientName').value.trim(); const cpf=document.getElementById('clientCPF').value.trim(); if(!name||!cpf){alert("Preencha Nome e CPF!");return;} clientModalEl.classList.add('hidden'); paymentModalEl.classList.remove('hidden'); }
+        cancelPaymentBtn.onclick=()=>paymentModalEl.classList.add('hidden');
+
+        paymentButtons.forEach(btn=>{
+            btn.onclick=()=>{
+                const method=btn.dataset.method;
+                if(method==="Cartão"){ paymentModalEl.classList.add('hidden'); cardModalEl.classList.remove('hidden'); }
+                else if(method==="Pix"){ paymentModalEl.classList.add('hidden'); pixModalEl.classList.remove('hidden'); }
+                else{ paymentModalEl.classList.add('hidden'); finalizePurchase("Dinheiro"); }
+            }
+        });
+
+        cancelCardBtn.onclick=()=>cardModalEl.classList.add('hidden');
+        confirmCardBtn.onclick=()=>{
+            const number=document.getElementById('cardNumber').value.trim();
+            const expiry=document.getElementById('cardExpiry').value.trim();
+            const cvv=document.getElementById('cardCVV').value.trim();
+            if(!number||!expiry||!cvv){alert("Preencha os dados do cartão!");return;}
+            cardModalEl.classList.add('hidden');
+            finalizePurchase("Cartão");
+        }
+
+        confirmPixBtn.onclick=()=>{ pixModalEl.classList.add('hidden'); finalizePurchase("Pix"); }
+        closeSuccess.onclick=()=>successModal.classList.add('hidden');
+
+        function finalizePurchase(paymentMethod){
+            const name=document.getElementById('clientName').value.trim();
+            const cpf=document.getElementById('clientCPF').value.trim();
+            sendOrderToAPI(name, cpf, paymentMethod, cart);
+
+            generatePDF(name, cpf, paymentMethod);
+            cart=[];
+            updateCart();
+            successModal.classList.remove('hidden');
+        }
+        
+
+        
+
+        function generatePDF(name, cpf, paymentMethod){
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            doc.setFontSize(16);
+            doc.text("Nota Fiscal - DevClube Café",14,20);
+            doc.setFontSize(12);
+            doc.text(`Cliente: ${name}`,14,30);
+            doc.text(`CPF: ${cpf}`,14,36);
+            doc.text(`Forma de Pagamento: ${paymentMethod}`,14,42);
+            const tableData = cart.map(p=>[p.name,p.qty.toString(),formatPrice(p.price),formatPrice(p.price*p.qty)]);
+            doc.autoTable({ startY:50, head:[['Produto','Qtd','Preço Unit.','Subtotal']], body:tableData });
+            const total = cart.reduce((sum,i)=>sum+i.price*i.qty,0);
+            doc.text(`Total: ${formatPrice(total)}`,14,doc.lastAutoTable.finalY+10);
+            doc.save('nota-fiscal.pdf');
+        }
+       
+        async function sendOrderToAPI(clientName, clientCPF, paymentMethod, cartItems) {
+    try {
+        const response = await fetch("http://localhost:3000/orders", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                customer: clientName,
+                cpf: clientCPF,
+                payment: paymentMethod,
+                items: cartItems.map(i => ({
+                    product_id: i.id,
+                    qty: i.qty,
+                    subtotal: i.price * i.qty
+                }))
+            })
+        });
+
+        const data = await response.json();
+        console.log("Pedido enviado:", data);
+    } catch (error) {
+        console.error("Erro ao enviar pedido:", error);
+    }
+}
+
+
+</script>
+        
+        
+
+        renderProducts();
+    </script>
+</body>
+</html>

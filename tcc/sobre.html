@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <base target="_self">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevClub Cafe - Sobre Nós</title>
+    <meta name="description" content="Conheça a DevClub Cafe - Nossos produtos, qualidade das matérias-primas e modo de fabricação artesanal">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#000000",
+                        secondary: "#FFD700",
+                        accent: "#FFED4A"
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="min-h-screen bg-white">
+    
+    <header class="bg-primary text-white shadow-lg">
+        <nav class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-coffee text-secondary text-2xl"></i>
+                    <h1 class="text-2xl font-bold">DevClub Cafe</h1>
+                </div>
+                
+                
+                <button class="md:hidden text-white">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        
+        <section class="bg-gradient-to-r from-primary to-gray-900 text-white py-20">
+            <div class="container mx-auto px-4 text-center">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6">DevClub Cafe</h1>
+                <p class="text-xl md:text-2xl text-secondary mb-8">Excelência em cada grão, paixão em cada xícara</p>
+                <div class="w-24 h-1 bg-secondary mx-auto"></div>
+
+                
+                <div class="mt-8">
+                    <button class="bg-primary text-white px-8 py-3 rounded-lg font-semibold hover:bg-gray-800 transition-colors duration-200 transform hover:scale-105">
+                        <i class="fas fa-shopping-bag mr-2"></i> <a href="produtos.html">COMPRAR AGORA</a>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        
+        <section class="py-16 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    
+                    <div class="relative">
+                        <img 
+                            src="https://picsum.photos/600/400?random=2" 
+                            alt="Interior da DevClub Cafe" 
+                            class="rounded-2xl shadow-2xl"
+                            loading="lazy"
+                        >
+                        <div class="absolute -bottom-6 -right-6 bg-secondary text-primary p-6 rounded-2xl shadow-2xl">
+                            <p class="text-2xl font-bold">Desde 2020</p>
+                            <p class="text-sm">Servindo o melhor café</p>
+                        </div>
+                    </div>
+                    
+                    
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-800 mb-6">Nossa História</h2>
+                        <p class="text-gray-600 mb-6 text-lg leading-relaxed">
+                            A DevClub Cafe nasceu da paixão por café de qualidade e do desejo de criar uma experiência única para os amantes da bebida. Combinando tradição e inovação, selecionamos os melhores grãos e desenvolvemos processos artesanais que destacam o sabor e aroma característicos de cada origem.
+                        </p>
+                        <p class="text-gray-600 text-lg leading-relaxed mb-6">
+                            Nossa missão é proporcionar momentos especiais através de cafés excepcionais, atendimento personalizado e um ambiente acolhedor onde cada cliente se sinta em casa.
+                        </p>
+
+                        
+                        <div class="mt-6">
+                            <button class="bg-primary text-white px-8 py-3 rounded-lg font-semibold hover:bg-gray-800 transition-colors duration-200 transform hover:scale-105">
+                                <i class="fas fa-shopping-bag mr-2"></i> <a href="produtos.html">COMPRAR AGORA</a>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+        <section class="py-16 bg-white">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-bold text-gray-800 mb-4">Nossos Produtos</h2>
+                    <p class="text-xl text-gray-600 max-w-3xl mx-auto">Descubra nossa variedade de cafés especiais e produtos exclusivos</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    
+                    <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                        <img 
+                            src="https://picsum.photos/400/300?random=3" 
+                            alt="Café Especial - Grãos Selecionados" 
+                            class="w-full h-48 object-cover"
+                            loading="lazy"
+                        >
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-gray-800 mb-3">Cafés Especiais</h3>
+                            <ul class="text-gray-600 space-y-2">
+                                <li class="flex items-center">
+                                    <i class="fas fa-check text-secondary mr-2"></i>
+                                    Grãos 100% Arábica
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-check text-secondary mr-2"></i>
+                                    Torra média e escura
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-check text-secondary mr-2"></i>
+                                    Origens selecionadas
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-check text-secondary mr-2"></i>
+                                    Embalagem a vácuo
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    
+                    <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                        <img 
+                            src="https://picsum.photos/400/300?random=4" 
+                            alt="Café em Cápsulas - Praticidade" 
+                            class="w-full h-48 object-cover"
+                            loading="lazy"
+                        >
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-gray-800 mb-3">Cápsulas Compatíveis</h3>
+                            <ul class="text-gray-600 space-y-2">
+                                <li class="flex items-center">
+                                    <i class="fas fa-check text-secondary mr-2"></i>
+                                    Compatível com principais marcas
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-check text-secondary mr-2"></i>
+                                    Grãos moídos na hora
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-check text-secondary mr-2"></i>
+                                    Embalagem biodegradável
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-check text-secondary mr-2"></i>
+                                    Variedade de intensidades
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    
+                    <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                        <img 
+                            src="https://picsum.photos/400/300?random=5" 
+                            alt="Acessórios para Café - Qualidade" 
+                            class="w-full h-48 object-cover"
+                            loading="lazy"
+                        >
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-gray-800 mb-3">Acessórios Premium</h3>
+                            <ul class="text-gray-600 space-y-2">
+                                <li class="flex items-center">
+                                    <i class="fas fa-check text-secondary mr-2"></i>
+                                    Moedores profissionais
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-check text-secondary mr-2"></i>
+                                    French Press e Chemex
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-check text-secondary mr-2"></i>
+                                    Canecas artesanais
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-check text-secondary mr-2"></i>
+                                    Kits de preparo
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+        <section class="py-16 bg-primary text-white">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-bold mb-4">Qualidade das Matérias-Primas</h2>
+                    <p class="text-xl text-secondary max-w-3xl mx-auto">Compromisso com a excelência desde a origem</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    
+                    <div class="text-center">
+                        <div class="bg-secondary text-primary w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-seedling text-3xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Seleção Rigorosa</h3>
+                        <p class="text-gray-300">Trabalhamos apenas com produtores certificados que praticam agricultura sustentável e colheita manual</p>
+                    </div>
+
+                
+                    <div class="text-center">
+                        <div class="bg-secondary text-primary w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-mountain text-3xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Origens Premium</h3>
+                        <p class="text-gray-300">Grãos selecionados das melhores regiões produtoras do Brasil, Colômbia, Etiópia e Guatemala</p>
+                    </div>
+
+                    
+                    <div class="text-center">
+                        <div class="bg-secondary text-primary w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-award text-3xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Certificações</h3>
+                        <p class="text-gray-300">Produtos com certificação Fair Trade, Orgânico e de Comércio Justo garantindo qualidade e responsabilidade</p>
+                    </div>
+
+                    
+                    <div class="text-center">
+                        <div class="bg-secondary text-primary w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-leaf text-3xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Sustentabilidade</h3>
+                        <p class="text-gray-300">Embalagens ecológicas, processos de baixo impacto ambiental e apoio às comunidades produtoras</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+ 
+                
+                <section class="py-16 bg-gray-50">
+                    <div class="container mx-auto px-4">
+                        <div class="text-center mb-12">
+                            <h2 class="text-4xl font-bold text-gray-800 mb-4">Modo de Fabricação</h2>
+                            <p class="text-xl text-gray-600 max-w-3xl mx-auto">Artesanalidade e tecnologia em perfeito equilíbrio</p>
+                        </div>
+        
+                        <div class="max-w-4xl mx-auto">
+                            
+                            <div class="flex flex-col md:flex-row items-center mb-12">
+                                <div class="md:w-1/3 text-center md:text-right mb-4 md:mb-0">
+                                    <div class="bg-primary text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto md:mx-0 md:ml-auto">
+                                        <span class="text-2xl font-bold">1</span>
+                                    </div>
+                                </div>
+                                <div class="md:w-2/3 md:pl-8">
+                                    <h3 class="text-2xl font-bold text-gray-800 mb-3">Seleção e Classificação</h3>
+                                    <p class="text-gray-600 leading-relaxed">
+                                        Cada lote de grãos passa por rigorosa inspeção visual e análise de umidade. Utilizamos tecnologia de classificação óptica para garantir que apenas os grãos perfeitos seguem para a torra.
+                                    </p>
+                                </div>
+                            </div>
+        
+                            
+                            <div class="flex flex-col md:flex-row items-center mb-12">
+                                <div class="md:w-1/3 text-center md:text-right mb-4 md:mb-0 order-2 md:order-1">
+                                    <div class="bg-primary text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto md:mx-0 md:ml-auto">
+                                        <span class="text-2xl font-bold">2</span>
+                                    </div>
+                                </div>
+                                <div class="md:w-2/3 md:pr-8 order-1 md:order-2">
+                                    <h3 class="text-2xl font-bold text-gray-800 mb-3">Torra Artesanal</h3>
+                                    <p class="text-gray-600 leading-relaxed">
+                                        Processo controlado em torradores de tambor que permitem desenvolvimento perfeito dos açúcares e óleos. Monitoramos temperatura e tempo para extrair o melhor perfil de cada origem.
+                                    </p>
+                                </div>
+                            </div>
+        
+                            
+                            <div class="flex flex-col md:flex-row items-center mb-12">
+                                <div class="md:w-1/3 text-center md:text-right mb-4 md:mb-0">
+                                    <div class="bg-primary text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto md:mx-0 md:ml-auto">
+                                        <span class="text-2xl font-bold">3</span>
+                                    </div>
+                                </div>
+                                <div class="md:w-2/3 md:pl-8">
+                                    <h3 class="text-2xl font-bold text-gray-800 mb-3">Moagem Personalizada</h3>
+                                    <p class="text-gray-600 leading-relaxed">
+                                        Moemos os grãos conforme o método de preparo escolhido. Desenvolvemos grinders específicos para cada tipo de moagem, garantindo extração ideal e preservação dos aromas.
+                                    </p>
+                                </div>
+                            </div>
+        
+                            
+                            <div class="flex flex-col md:flex-row items-center">
+                                <div class="md:w-1/3 text-center md:text-right mb-4 md:mb-0 order-2 md:order-1">
+                                    <div class="bg-primary text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto md:mx-0 md:ml-auto">
+                                        <span class="text-2xl font-bold">4</span>
+                                    </div>
+                                </div>
+                                <div class="md:w-2/3 md:pr-8 order-1 md:order-2">
+                                    <h3 class="text-2xl font-bold text-gray-800 mb-3">Embalagem e Entrega</h3>
+                                    <p class="text-gray-600 leading-relaxed">
+                                        Sistema de embalagem a vácuo com válvula unidirecional que preserva a frescura. Logística otimizada para entrega rápida, garantindo que o café chegue ao cliente no ponto ideal de consumo.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+        
+                
+                <section class="py-16 bg-secondary">
+                    <div class="container mx-auto px-4 text-center">
+                        <h2 class="text-3xl md:text-4xl font-bold text-primary mb-6">Pronto para experimentar a diferença?</h2>
+                        <p class="text-xl text-gray-800 mb-8 max-w-2xl mx-auto">Junte-se à família DevClub Cafe e descubra o verdadeiro sabor do café especial</p>
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                            <button class="bg-primary text-white px-8 py-3 rounded-lg font-semibold hover:bg-gray-800 transition-colors duration-200 transform hover:scale-105">
+                                <i class="fas fa-shopping-bag mr-2"></i> <a href="produtos.html">COMPRAR AGORA</a>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        
+            
+            <footer class="bg-primary text-white py-12">
+                <div class="container mx-auto px-4">
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                        
+                        <div class="md:col-span-2">
+                            <div class="flex items-center space-x-2 mb-4">
+                                <i class="fas fa-coffee text-secondary text-2xl"></i>
+                                <h3 class="text-2xl font-bold">DevClub Cafe</h3>
+                            </div>
+                            <p class="text-gray-300 mb-4 leading-relaxed">
+                                Transformando paixão por café em experiências memoráveis. Qualidade, sustentabilidade e sabor em cada xícara.
+                            </p>
+                            <div class="flex space-x-4">
+                                <a href="#" class="text-gray-300 hover:text-secondary transition-colors duration-200">
+                                    <i class="fab fa-facebook-f text-xl"></i>
+                                </a>
+                                <a href="#" class="text-gray-300 hover:text-secondary transition-colors duration-200">
+                                    <i class="fab fa-instagram text-xl"></i>
+                                </a>
+                                <a href="#" class="text-gray-300 hover:text-secondary transition-colors duration-200">
+                                    <i class="fab fa-twitter text-xl"></i>
+                                </a>
+                            </div>
+                        </div>
+        
+                    
+                        <div>
+                            <h4 class="text-lg font-bold mb-4">Contato</h4>
+                            <ul class="space-y-2 text-gray-300">
+                                <li class="flex items-center">
+                                    <i class="fas fa-map-marker-alt text-secondary mr-2"></i>
+                                    Rio de Janeiro, RJ
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-phone text-secondary mr-2"></i>
+                                    (21) 965567249
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-envelope text-secondary mr-2"></i>
+                                    contato@devclubcafe.com
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+        
+                    <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300">
+                        <p>&copy; 2024 DevClub Cafe. Todos os direitos reservados.</p>
+                    </div>
+                </div>
+            </footer>
+        
+            <script>
+                
+                document.addEventListener('DOMContentLoaded', function() {
+                    
+                    const cards = document.querySelectorAll('.bg-white.rounded-2xl');
+                    cards.forEach(card => {
+                        card.addEventListener('mouseenter', function() {
+                            this.style.transform = 'translateY(-8px)';
+                        });
+                        
+                        card.addEventListener('mouseleave', function() {
+                            this.style.transform = 'translateY(0)';
+                        });
+                    });
+        
+                
+                    document.querySelectorAll('button').forEach(button => {
+                        button.addEventListener('click', function() {
+                            this.style.transform = 'scale(0.95)';
+                            setTimeout(() => {
+                                this.style.transform = 'scale(1)';
+                            }, 150);
+                        });
+                    });
+        
+                    
+                    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                        anchor.addEventListener('click', function (e) {
+                            e.preventDefault();
+                            const target = document.querySelector(this.getAttribute('href'));
+                            if (target) {
+                                target.scrollIntoView({
+                                    behavior: 'smooth',
+                                    block: 'start'
+                                });
+                            }
+                        });
+                    });
+                });
+            </script>
+        </body>
+        </html>
+        

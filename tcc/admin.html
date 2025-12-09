@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>DevClub Café - Admin</title>
+<style>
+body { font-family: Arial; background:#f2f2f2; padding:20px; }
+.login-box,.container{max-width:600px;margin:auto;background:white;padding:20px;border-radius:10px;box-shadow:0 0 10px rgba(0,0,0,0.1);}
+h1,h2{text-align:center;}
+form{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
+input,textarea{padding:10px;border:1px solid #ccc;border-radius:5px;}
+button{padding:12px;background:#4CAF50;color:white;border:none;border-radius:5px;cursor:pointer;font-size:16px;}
+button:hover{background:#45a049;}
+.product-item{display:flex;justify-content:space-between;align-items:center;padding:10px;background:#fafafa;border:1px solid #ddd;border-radius:5px;margin-bottom:10px;}
+.remove-btn{background:red;} .remove-btn:hover{background:darkred;}
+.edit-btn{background:#007bff;} .edit-btn:hover{background:#0056b3;}
+img { width: 60px; height: 60px; object-fit: cover; border-radius: 5px; margin-right: 10px; }
+.product-left { display: flex; align-items: center; gap: 10px; }
+</style>
+</head>
+<body>
+<div id="loginBox" class="login-box">
+    <h1>Login Admin</h1>
+    <form id="loginForm">
+        <input type="text" id="adminUser" placeholder="Usuário" required />
+        <input type="password" id="adminPass" placeholder="Senha" required />
+        <button type="submit">Entrar</button>
+    </form>
+</div>
+
+<div id="adminPanel" class="container" style="display:none;">
+    <h1>Painel Admin - DevClub Café</h1>
+
+    <h2 id="formTitle">Adicionar Produto</h2>
+    <form id="productForm" enctype="multipart/form-data">
+        <input type="hidden" id="productId" />
+        <input type="text" id="name" placeholder="Nome" required />
+        <input type="number" id="price" step="0.01" placeholder="Preço" required />
+        <input type="file" id="image" accept="image/*" />
+        <button type="submit">Salvar</button>
+    </form>
+
+    <h2>Produtos</h2>
+    <div id="productList"></div>
+</div>
+
+
+<script src="https://widget.cloudinary.com/v2.0/global/all.js"></script>
+
+<script>
+const API_BASE = "http://localhost:3000";
+const API_URL = `${API_BASE}/product`;
+
+const loginForm = document.getElementById("loginForm");
+const loginBox = document.getElementById("loginBox");
+const adminPanel = document.getElementById("adminPanel");
+
+// LOGIN
+loginForm.addEventListener("submit", (e)=>{
+    e.preventDefault();
+    const user=document.getElementById("adminUser").value;
+    const pass=document.getElementById("adminPass").value;
+    if(user==="admin" && pass==="admin123"){
+        loginBox.style.display="none";
+        adminPanel.style.display="block";
+        loadProducts();
+    } else alert("Usuário ou senha incorretos");
+});
+
+// CRIAR / EDITAR PRODUTO
+const form=document.getElementById("productForm");
+form.addEventListener("submit", async (e)=>{
+    e.preventDefault();
+    const id=document.getElementById("productId").value;
+
+    const formData = new FormData();
+    formData.append("nome", document.getElementById("name").value);
+    formData.append("preco", parseFloat(document.getElementById("price").value));
+    const imageInput = document.getElementById("image");
+    if(imageInput.files.length>0) formData.append("image", imageInput.files[0]);
+
+    if(id){
+        await fetch(`${API_URL}/${id}`, { method:"PUT", body:formData });
+    } else {
+        await fetch(API_URL, { method:"POST", body:formData });
+    }
+
+    form.reset();
+    document.getElementById("productId").value="";
+    document.getElementById("formTitle").innerText="Adicionar Produto";
+    loadProducts();
+});
+
+// LISTAR PRODUTOS
+async function loadProducts(){
+    const response = await fetch(API_URL);
+    const products = await response.json();
+    const list = document.getElementById("productList");
+    list.innerHTML="";
+
+    products.forEach(p=>{
+        const item=document.createElement("div");
+        item.className="product-item";
+
+        const imgURL = p.image_url ? `${API_BASE}${p.image_url}` : "https://via.placeholder.com/60";
+
+        item.innerHTML=`
+            <div class="product-left">
+                <img src="${imgURL}" alt="">
+                <span><strong>${p.name}</strong> - R$ ${p.price}</span>
+            </div>
+            <div>
+                <button class="edit-btn" onclick="editProduct(${p.id})">Editar</button>
+                <button class="remove-btn" onclick="removeProduct(${p.id})">Remover</button>
+            </div>
+        `;
+        list.appendChild(item);
+    });
+}
+
+// REMOVER
+async function removeProduct(id){
+    await fetch(`${API_URL}/${id}`, { method:"DELETE" });
+    loadProducts();
+}
+
+// EDITAR
+async function editProduct(id){
+    const response = await fetch(`${API_URL}`);
+    const products = await response.json();
+    const p = products.find(x=>x.id===id);
+    document.getElementById("productId").value = p.id;
+    document.getElementById("name").value = p.name;
+    document.getElementById("price").value = p.price;
+    document.getElementById("formTitle").innerText = "Editar Produto";
+}
+</script>
+</body>
+</html>
