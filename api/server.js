@@ -1,35 +1,12 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
-const multer = require("multer");
 const path = require("path");
-const fs = require("fs");
 const app = express();
 const pool = require("./db");
-const cloudinary = require('cloudinary').v2;
 
 app.use(cors());
 app.use(express.json());
-
-// ==============================
-// SERVIR PASTA DE UPLOADS
-// ==============================
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
-
-const uploadPath = path.join(__dirname, "uploads");
-if (!fs.existsSync(uploadPath)) fs.mkdirSync(uploadPath);
-
-// ==============================
-// CONFIGURAÇÃO MULTER (UPLOAD)
-// ==============================
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => cb(null, uploadPath),
-    filename: (req, file, cb) => {
-        const unique = Date.now() + "-" + Math.round(Math.random() * 1e9);
-        cb(null, unique + path.extname(file.originalname));
-    }
-});
-const upload = multer({ storage });
 
 // ==============================
 // ROTA INICIAL
@@ -66,22 +43,22 @@ app.get("/product/:id", async (req, res) => {
              WHERE p.id = $1`,
             [id]
         );
-        if (result.rows.length === 0) return res.status(404).json({ error: "Produto não encontrado" });
+        if (result.rows.length === 0)
+            return res.status(404).json({ error: "Produto não encontrado" });
         res.json(result.rows[0]);
     } catch (err) {
         res.status(500).json({ error: "Erro ao buscar produto" });
     }
 });
 
-// Criar produto
-app.post("/product", upload.single("image"), async (req, res) => {
+// Criar produto (ACEITA APENAS JSON)
+app.post("/product", async (req, res) => {
     try {
-        const { nome, preco } = req.body;
-        const imageUrl = req.file ? `/uploads/${req.file.filename}` : null;
+        const { nome, preco, image_url } = req.body;
 
         const result = await pool.query(
             "INSERT INTO products (name, price, image_url) VALUES ($1, $2, $3) RETURNING *",
-            [nome, preco, imageUrl]
+            [nome, preco, image_url]
         );
 
         // cria o estoque automaticamente com 0
@@ -91,22 +68,24 @@ app.post("/product", upload.single("image"), async (req, res) => {
 
         res.json(result.rows[0]);
     } catch (err) {
+        console.log(err);
         res.status(500).json({ error: "Erro ao criar produto" });
     }
 });
 
-// Editar produto
-app.put("/product", upload.single("image"), async (req, res) => {
+// Editar produto (ACEITA APENAS JSON)
+app.put("/product/:id", async (req, res) => {
     try {
-        const { id, nome, preco, oldImage } = req.body;
-
-        let imageUrl = oldImage;
-        if (req.file) imageUrl = `/uploads/${req.file.filename}`;
+        const { id } = req.params;
+        const { nome, preco, image_url } = req.body;
 
         const result = await pool.query(
             "UPDATE products SET name = $1, price = $2, image_url = $3 WHERE id = $4 RETURNING *",
-            [nome, preco, imageUrl, id]
+            [nome, preco, image_url, id]
         );
+
+        if (result.rows.length === 0)
+            return res.status(404).json({ error: "Produto não encontrado" });
 
         res.json(result.rows[0]);
     } catch (err) {
@@ -118,12 +97,6 @@ app.put("/product", upload.single("image"), async (req, res) => {
 app.delete("/product/:id", async (req, res) => {
     try {
         const { id } = req.params;
-
-        const img = await pool.query("SELECT image_url FROM products WHERE id = $1", [id]);
-        if (img.rows.length > 0 && img.rows[0].image_url) {
-            const filePath = path.join(__dirname, img.rows[0].image_url);
-            if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
-        }
 
         await pool.query("DELETE FROM stock WHERE product_id = $1", [id]);
         await pool.query("DELETE FROM products WHERE id = $1", [id]);
@@ -262,7 +235,8 @@ app.post("/login", async (req, res) => {
             "SELECT id, name, email FROM users WHERE email = $1 AND password = $2",
             [email, password]
         );
-        if (result.rows.length === 0) return res.status(401).json({ error: "Credenciais inválidas" });
+        if (result.rows.length === 0)
+            return res.status(401).json({ error: "Credenciais inválidas" });
         res.json(result.rows[0]);
     } catch (err) {
         res.status(500).json({ error: "Erro no login" });

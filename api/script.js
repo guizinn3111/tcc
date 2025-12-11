@@ -6,6 +6,6 @@ cloud_name: 'duoasocsd',
 secure: true
 });
 
-const url = cloudinary.url('waffle_adbjgl')
+const url = cloudinary.url('cenoura_janjdf')
 
 console.log(url)
